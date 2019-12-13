@@ -32,6 +32,7 @@ bool Json::read(const string &jsonFile) {
       size_t start = s.find_first_not_of(" ");
       size_t end = s.find_last_not_of(" ");
       s = s.substr(start, end - start + 1);
+
       if (s == "{" || s == "}") {
         // ignore first and last line
         continue;
@@ -51,6 +52,7 @@ bool Json::read(const string &jsonFile) {
   } else {
     return false;
   }
+
   return true;
 }
 
@@ -85,7 +87,7 @@ void Json::average() {
   }
   AVE /= _obj.size();
   cout << "The average of the values is: " << fixed << setprecision(1) << AVE
-       << endl;
+       << "." << endl;
 }
 
 void Json::max() {
@@ -94,20 +96,22 @@ void Json::max() {
   for (size_t i = 0; i < _obj.size(); ++i) {
     if (_obj[i].getValue() > MAX) {
       index = i;
+      MAX = _obj[i].getValue();
     }
   }
-  cout << "The maximum element is: " << _obj[index] << endl;
+  cout << "The maximum element is: {" << _obj[index] << "}." << endl;
 }
 
 void Json::min() {
   int MIN = INT_MAX;
   int index = -1;
   for (size_t i = 0; i < _obj.size(); ++i) {
-    if (_obj[i].getValue() > MIN) {
+    if (_obj[i].getValue() < MIN) {
       index = i;
+      MIN = _obj[i].getValue();
     }
   }
-  cout << "The minimum element is: " << _obj[index] << endl;
+  cout << "The minimum element is: {" << _obj[index] << "}." << endl;
 }
 
 /*******************************************************************************
